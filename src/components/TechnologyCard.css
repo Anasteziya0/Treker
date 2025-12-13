@@ -1,0 +1,75 @@
+/* components/TechnologyCard.css */
+.technology-card {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.card-content {
+    flex: 1;
+}
+
+.card-content h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.description {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.status-info {
+    margin-left: 15px;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Простые цвета для статусов */
+.status-badge.completed {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-badge.in-progress {
+    background-color: #fff3e0;
+    color: #ef6c00;
+}
+
+.status-badge.planned {
+    background-color: #f5f5f5;
+    color: #616161;
+}
+
+@media (max-width: 768px) {
+    .card-section {
+        flex-direction: column;
+    }
+    
+    .status-info {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .technology-card {
+        padding: 12px;
+    }
+}

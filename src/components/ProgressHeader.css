@@ -1,0 +1,83 @@
+/* components/ProgressHeader.css */
+.progress-header {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.stat {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-number {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #666;
+}
+
+.progress-section {
+    margin-top: 15px;
+}
+
+.progress-bar {
+    height: 24px;
+    background: #f0f0f0;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #4CAF50;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.5s ease;
+    min-width: 30px;
+}
+
+.progress-text {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.progress-message {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Простая адаптивность */
+@media (max-width: 768px) {
+    .progress-header {
+        padding: 15px;
+    }
+    
+    .stat-number {
+        font-size: 20px;
+    }
+    
+    .progress-bar {
+        height: 20px;
+    }
+}
