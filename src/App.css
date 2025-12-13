@@ -1,268 +1,447 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
-    line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
 }
 
 .App {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 .App-header {
-    background: linear-gradient(135deg, #1976d2, #1565c0);
-    color: white;
-    padding: 25px 20px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  color: white;
+  padding: 25px 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .App-header h1 {
-    font-size: 28px;
-    margin-bottom: 8px;
-    font-weight: 600;
+  font-size: 28px;
+  margin-bottom: 8px;
+  font-weight: 600;
 }
 
 .roadmap-subtitle {
-    font-size: 16px;
-    opacity: 0.9;
-    max-width: 500px;
-    margin: 0 auto;
+  font-size: 16px;
+  opacity: 0.9;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .main-content {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 25px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 25px 20px;
 }
 
-/* Простая анимация появления контейнера */
 .roadmap-container {
-    background: white;
-    border-radius: 10px;
-    padding: 25px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    animation: fadeInUp 0.5s ease;
+  background: white;
+  border-radius: 10px;
+  padding: 25px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  animation: fadeInUp 0.5s ease;
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .roadmap-container h2 {
-    font-size: 22px;
-    margin-bottom: 20px;
-    color: #333;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #f0f0f0;
-    font-weight: 600;
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #333;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+  font-weight: 600;
 }
 
 .summary-info {
-    background: #f8f9fa;
-    padding: 12px 15px;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    border-left: 4px solid #1976d2;
+  background: #f8f9fa;
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  border-left: 4px solid #1976d2;
 }
 
 .summary-info p {
-    margin: 0;
-    color: #555;
-    font-weight: 500;
-    font-size: 14px;
+  margin: 0;
+  color: #555;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .technologies-list {
-    margin-top: 20px;
+  margin-top: 20px;
+}
+
+.technology-item {
+  margin-bottom: 12px;
 }
 
 .controls {
-    margin-top: 30px;
-    padding-top: 25px;
-    border-top: 2px solid #f0f0f0;
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 2px solid #f0f0f0;
 }
 
 .control-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 25px;
 }
 
 .control-btn {
-    padding: 10px 18px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.2s ease;
-    border: none;
-    font-weight: 500;
-    min-width: 160px;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  border: none;
+  font-weight: 500;
+  min-width: 160px;
 }
 
 .control-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .control-btn:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 .reset-btn {
-    background-color: #f8f9fa;
-    color: #666;
-    border: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+  color: #666;
+  border: 1px solid #dee2e6;
 }
 
 .reset-btn:hover {
-    background-color: #e9ecef;
-    border-color: #ced4da;
+  background-color: #e9ecef;
+  border-color: #ced4da;
 }
 
 .progress-btn {
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeaa7;
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
 }
 
 .progress-btn:hover {
-    background-color: #ffeaa7;
-    border-color: #fdcb6e;
+  background-color: #ffeaa7;
+  border-color: #fdcb6e;
 }
 
 .complete-btn {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
 }
 
 .complete-btn:hover {
-    background-color: #c3e6cb;
-    border-color: #a5d6a7;
+  background-color: #c3e6cb;
+  border-color: #a5d6a7;
 }
 
 .add-btn {
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border: 1px solid #bee5eb;
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
 }
 
 .add-btn:hover {
-    background-color: #bee5eb;
-    border-color: #86cfda;
-}
-
-/* Простая анимация для прогресс-бара */
-.progress-fill {
-    transition: width 0.5s ease;
+  background-color: #bee5eb;
+  border-color: #86cfda;
 }
 
 .instructions {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    border-left: 4px solid #6c757d;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #6c757d;
 }
 
 .instructions h3 {
-    margin: 0 0 15px 0;
-    color: #495057;
-    font-size: 16px;
-    font-weight: 600;
+  margin: 0 0 15px 0;
+  color: #495057;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .instructions ul {
-    margin: 0;
-    padding-left: 20px;
+  margin: 0;
+  padding-left: 20px;
 }
 
 .instructions li {
-    margin-bottom: 8px;
-    color: #6c757d;
-    font-size: 14px;
+  margin-bottom: 8px;
+  color: #6c757d;
+  font-size: 14px;
 }
 
 .instructions li:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
-    .main-content {
-        padding: 15px;
-    }
-    
-    .roadmap-container {
-        padding: 20px;
-    }
-    
-    .App-header {
-        padding: 20px 15px;
-    }
-    
-    .App-header h1 {
-        font-size: 24px;
-    }
-    
-    .control-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .control-btn {
-        width: 100%;
-        max-width: 300px;
-    }
-    
-    .roadmap-container h2 {
-        font-size: 20px;
-    }
-    
-    .instructions {
-        padding: 15px;
-    }
+  .main-content {
+    padding: 15px;
+  }
+  
+  .roadmap-container {
+    padding: 20px;
+  }
+  
+  .App-header {
+    padding: 20px 15px;
+  }
+  
+  .App-header h1 {
+    font-size: 24px;
+  }
+  
+  .control-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .control-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .roadmap-container h2 {
+    font-size: 20px;
+  }
+  
+  .instructions {
+    padding: 15px;
+  }
 }
 
 @media (max-width: 480px) {
-    .App-header h1 {
-        font-size: 20px;
-    }
-    
-    .roadmap-subtitle {
-        font-size: 14px;
-    }
-    
-    .roadmap-container {
-        padding: 15px;
-    }
-    
-    .summary-info {
-        padding: 10px;
-        font-size: 13px;
-    }
-    
-    .instructions h3 {
-        font-size: 15px;
-    }
-    
-    .instructions li {
-        font-size: 13px;
-    }
+  .App-header h1 {
+    font-size: 20px;
+  }
+  
+  .roadmap-subtitle {
+    font-size: 14px;
+  }
+  
+  .roadmap-container {
+    padding: 15px;
+  }
+  
+  .summary-info {
+    padding: 10px;
+    font-size: 13px;
+  }
+  
+  .instructions h3 {
+    font-size: 15px;
+  }
+  
+  .instructions li {
+    font-size: 13px;
+  }
+}
+/* Добавьте в App.css */
+
+/* Стили для поиска */
+.search-container {
+  margin-bottom: 25px;
+}
+
+.search-box {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #1976d2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.search-input-wrapper {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 45px 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #e5e7eb;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.clear-search-btn:hover {
+  background: #d1d5db;
+  color: #374151;
+}
+
+.search-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.search-results {
+  color: #666;
+}
+
+.search-results strong {
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.search-query {
+  color: #6b7280;
+  font-style: italic;
+  background: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* Стили для состояния "нет результатов" */
+.no-results {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px dashed #e5e7eb;
+  margin: 20px 0;
+}
+
+.no-results-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.no-results h3 {
+  color: #374151;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.no-results p {
+  color: #6b7280;
+  margin-bottom: 0;
+}
+
+.clear-search-link {
+  background: none;
+  border: none;
+  color: #1976d2;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0 4px;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.clear-search-link:hover {
+  color: #1565c0;
+}
+
+/* Анимация появления результатов */
+@keyframes fadeInSearch {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.technologies-list > .technology-item {
+  animation: fadeInSearch 0.3s ease;
+}
+
+/* Адаптивность для поиска */
+@media (max-width: 768px) {
+  .search-box {
+    padding: 15px;
+  }
+  
+  .search-stats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .search-input {
+    padding: 10px 40px 10px 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-box {
+    padding: 12px;
+  }
+  
+  .search-input {
+    padding: 8px 35px 8px 10px;
+    font-size: 16px; /* Для мобильных лучше увеличить */
+  }
+  
+  .no-results {
+    padding: 30px 15px;
+  }
+  
+  .no-results-icon {
+    font-size: 36px;
+  }
 }

@@ -1,52 +1,80 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import TechnologyCard from './components/TechnologyCard';
 import ProgressHeader from './components/ProgressHeader';
+import TechnologyNotes from './components/TechnologyNotes';
 import './components/TechnologyCard.css';
 import './components/ProgressHeader.css';
+import './components/TechnologyNotes.css';
 
 function App() {
-  // Создаем состояние для хранения массива технологий
-  const [technologies, setTechnologies] = useState([
-    {
-      id: 1,
-      title: 'React Components',
-      description: 'Изучение базовых компонентов',
-      status: 'planned'
-    },
-    {
-      id: 2,
-      title: 'JSX Syntax',
-      description: 'Освоение синтаксиса JSX',
-      status: 'planned'
-    },
-    {
-      id: 3,
-      title: 'State Management',
-      description: 'Работа с состоянием компонентов',
-      status: 'planned'
-    },
-    {
-      id: 4,
-      title: 'React Hooks',
-      description: 'Изучение всех основных хуков',
-      status: 'planned'
-    },
-    {
-      id: 5,
-      title: 'React Router',
-      description: 'Навигация в React приложениях',
-      status: 'planned'
-    },
-    {
-      id: 6,
-      title: 'CSS Modules',
-      description: 'Стилизация компонентов',
-      status: 'planned'
+  const [technologies, setTechnologies] = useState(() => {
+    const saved = localStorage.getItem('techTrackerData');
+    if (saved) {
+      console.log('Данные загружены из localStorage');
+      return JSON.parse(saved);
     }
-  ]);
+    
+    return [
+      {
+        id: 1,
+        title: 'React Components',
+        description: 'Изучение базовых компонентов',
+        status: 'planned',
+        notes: ''
+      },
+      {
+        id: 2,
+        title: 'JSX Syntax',
+        description: 'Освоение синтаксиса JSX',
+        status: 'planned',
+        notes: ''
+      },
+      {
+        id: 3,
+        title: 'State Management',
+        description: 'Работа с состоянием компонентов',
+        status: 'planned',
+        notes: ''
+      },
+      {
+        id: 4,
+        title: 'React Hooks',
+        description: 'Изучение всех основных хуков',
+        status: 'planned',
+        notes: ''
+      },
+      {
+        id: 5,
+        title: 'React Router',
+        description: 'Навигация в React приложениях',
+        status: 'planned',
+        notes: ''
+      },
+      {
+        id: 6,
+        title: 'CSS Modules',
+        description: 'Стилизация компонентов',
+        status: 'planned',
+        notes: ''
+      }
+    ];
+  });
 
-  // Функция для обновления статуса технологии по id
+  const [selectedTechId, setSelectedTechId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(''); // Состояние для поиска
+
+  useEffect(() => {
+    localStorage.setItem('techTrackerData', JSON.stringify(technologies));
+    console.log('Данные сохранены в localStorage');
+  }, [technologies]);
+
+  // Фильтрация технологий по поисковому запросу
+  const filteredTechnologies = technologies.filter(tech => 
+    tech.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    tech.description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const updateTechnologyStatus = (id, newStatus) => {
     setTechnologies(prevTechnologies => 
       prevTechnologies.map(tech => 
@@ -55,63 +83,67 @@ function App() {
     );
   };
 
-  // Функция для обработки изменения статуса в карточке
+  const updateTechnologyNotes = (techId, newNotes) => {
+    setTechnologies(prevTech =>
+      prevTech.map(tech =>
+        tech.id === techId ? { ...tech, notes: newNotes } : tech
+      )
+    );
+  };
+
   const handleStatusChange = (id, currentStatus) => {
-    // Определяем порядок смены статусов
     const statusFlow = {
       'planned': 'in-progress',
       'in-progress': 'completed',
       'completed': 'planned'
     };
     
-    // Получаем следующий статус
     const nextStatus = statusFlow[currentStatus];
-    
-    // Вызываем функцию обновления статуса
     updateTechnologyStatus(id, nextStatus);
   };
 
-  // Функция для сброса всех статусов
+  const handleSelectTech = (id) => {
+    setSelectedTechId(selectedTechId === id ? null : id);
+  };
+
   const resetAllStatuses = () => {
     setTechnologies(techs => 
       techs.map(tech => ({ ...tech, status: 'planned' }))
     );
   };
 
-  // Функция для отметки всех как завершенных
   const markAllAsCompleted = () => {
     setTechnologies(techs => 
       techs.map(tech => ({ ...tech, status: 'completed' }))
     );
   };
 
-  // Функция для отметки всех как в процессе
   const markAllAsInProgress = () => {
     setTechnologies(techs => 
       techs.map(tech => ({ ...tech, status: 'in-progress' }))
     );
   };
 
-  // Функция для добавления новой технологии
   const addNewTechnology = () => {
     const newId = technologies.length > 0 ? Math.max(...technologies.map(t => t.id)) + 1 : 1;
     const newTechnology = {
       id: newId,
       title: `Новая технология ${newId}`,
       description: 'Описание новой технологии',
-      status: 'planned'
+      status: 'planned',
+      notes: ''
     };
     
     setTechnologies(prev => [...prev, newTechnology]);
   };
 
-  // Рассчитываем статистику для отображения
-  const stats = {
-    total: technologies.length,
-    completed: technologies.filter(t => t.status === 'completed').length,
-    inProgress: technologies.filter(t => t.status === 'in-progress').length,
-    planned: technologies.filter(t => t.status === 'planned').length
+  const clearSearch = () => {
+    setSearchQuery('');
   };
+
+  const completedCount = filteredTechnologies.filter(t => t.status === 'completed').length;
+  const inProgressCount = filteredTechnologies.filter(t => t.status === 'in-progress').length;
+  const plannedCount = filteredTechnologies.filter(t => t.status === 'planned').length;
 
   return (
     <div className="App">
@@ -122,30 +154,90 @@ function App() {
 
       <main className="main-content">
         <div className="roadmap-container">
-          <ProgressHeader technologies={technologies} />
+          <ProgressHeader technologies={filteredTechnologies} />
           
           <h2>Технологии для изучения</h2>
           
-          {/* Информация о количестве карточек */}
+          {/* Поле поиска */}
+          <div className="search-container">
+            <div className="search-box">
+              <div className="search-input-wrapper">
+                <input
+                  type="text"
+                  placeholder="Поиск технологий по названию или описанию..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="search-input"
+                />
+                {searchQuery && (
+                  <button 
+                    className="clear-search-btn"
+                    onClick={clearSearch}
+                    title="Очистить поиск"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+              <div className="search-stats">
+                <span className="search-results">
+                  Найдено: <strong>{filteredTechnologies.length}</strong> из {technologies.length}
+                </span>
+                {searchQuery && (
+                  <span className="search-query">
+                    По запросу: "{searchQuery}"
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+          
           <div className="summary-info">
-            <p>Всего: {stats.total} | Изучено: {stats.completed} | В процессе: {stats.inProgress} | Запланировано: {stats.planned}</p>
+            <p>Всего: {filteredTechnologies.length} | 
+               Изучено: {completedCount} | 
+               В процессе: {inProgressCount} | 
+               Запланировано: {plannedCount}
+            </p>
           </div>
           
           <div className="technologies-list">
-            {technologies.map(tech => (
-              <TechnologyCard
-                key={tech.id}
-                id={tech.id}
-                title={tech.title}
-                description={tech.description}
-                status={tech.status}
-                // Передаем функцию изменения статуса в каждую карточку
-                onStatusChange={handleStatusChange}
-              />
-            ))}
+            {filteredTechnologies.length > 0 ? (
+              filteredTechnologies.map(tech => (
+                <div key={tech.id} className="technology-item">
+                  <TechnologyCard
+                    id={tech.id}
+                    title={tech.title}
+                    description={tech.description}
+                    status={tech.status}
+                    isSelected={selectedTechId === tech.id}
+                    onStatusChange={handleStatusChange}
+                    onSelect={handleSelectTech}
+                  />
+                  
+                  {selectedTechId === tech.id && (
+                    <TechnologyNotes
+                      technology={tech}
+                      onNotesChange={updateTechnologyNotes}
+                    />
+                  )}
+                </div>
+              ))
+            ) : (
+              <div className="no-results">
+                <div className="no-results-icon">🔍</div>
+                <h3>Ничего не найдено</h3>
+                <p>Попробуйте изменить поисковый запрос или 
+                  <button 
+                    className="clear-search-link"
+                    onClick={clearSearch}
+                  >
+                    очистить поиск
+                  </button>
+                </p>
+              </div>
+            )}
           </div>
           
-          {/* Панель управления */}
           <div className="controls">
             <div className="control-buttons">
               <button 
@@ -177,13 +269,13 @@ function App() {
               </button>
             </div>
             
-            {/* Дополнительная информация */}
             <div className="instructions">
               <h3>Как пользоваться:</h3>
               <ul>
-                <li>Кликните на любую карточку, чтобы изменить её статус</li>
-                <li>Используйте кнопки управления для массовых действий</li>
-                <li>Статусы меняются по кругу: Запланировано → В процессе → Изучено</li>
+                <li>Используйте поле поиска для быстрого нахождения технологий</li>
+                <li>Кликните на карточку технологии, чтобы открыть заметки</li>
+                <li>Вводите заметки - они автоматически сохраняются</li>
+                <li>Кликните на бейдж статуса, чтобы изменить статус</li>
               </ul>
             </div>
           </div>

@@ -1,192 +1,195 @@
-/* components/TechnologyCard.css */
 .technology-card {
-    background: white;
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 12px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    
-    /* Плавные переходы */
-    transition: all 0.3s ease;
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
 }
 
-/* Стили для разных статусов */
 .technology-card.planned {
-    border-left: 4px solid #9ca3af;
-    background-color: #f9fafb;
+  border-left: 4px solid #9ca3af;
+  background-color: #f9fafb;
 }
 
 .technology-card.in-progress {
-    border-left: 4px solid #f59e0b;
-    background-color: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  background-color: #fffbeb;
 }
 
 .technology-card.completed {
-    border-left: 4px solid #10b981;
-    background-color: #f0fdf4;
+  border-left: 4px solid #10b981;
+  background-color: #f0fdf4;
 }
 
-/* Делаем карточку кликабельной */
-.technology-card.clickable {
-    cursor: pointer;
+.technology-card.selected {
+  box-shadow: 0 0 0 2px #1976d2;
+  border-color: #1976d2;
+  transform: translateY(-2px);
 }
 
-.technology-card.clickable:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.technology-card:hover:not(.selected) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.technology-card.clickable:active {
-    transform: translateY(0);
-}
-
-/* Простая анимация изменения статуса */
 @keyframes statusChange {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(0.98);
-    }
-    100% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .technology-card.status-changing {
-    animation: statusChange 0.3s ease;
+  animation: statusChange 0.3s ease;
 }
 
 .card-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .card-content {
-    flex: 1;
+  flex: 1;
 }
 
 .card-content h3 {
-    margin: 0 0 8px 0;
-    font-size: 18px;
-    color: #333;
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.card-content h3 .emoji {
+  margin-left: 8px;
 }
 
 .description {
-    margin: 0;
-    color: #666;
-    font-size: 14px;
-    line-height: 1.4;
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 .status-info {
-    margin-left: 15px;
-    display: flex;
-    align-items: center;
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
 }
 
 .status-badge {
-    padding: 6px 12px;
-    border-radius: 16px;
-    font-size: 12px;
-    font-weight: 500;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    transition: all 0.2s ease;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  font: inherit;
+  background: none;
 }
 
-/* Стили для бейджей статусов */
 .status-badge.planned {
-    background-color: #e5e7eb;
-    color: #374151;
-    border: 1px solid #d1d5db;
+  background-color: #e5e7eb;
+  color: #374151;
+  border: 1px solid #d1d5db;
 }
 
 .status-badge.in-progress {
-    background-color: #fef3c7;
-    color: #92400e;
-    border: 1px solid #fde68a;
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  animation: pulse 2s infinite;
 }
 
 .status-badge.completed {
-    background-color: #d1fae5;
-    color: #065f46;
-    border: 1px solid #a7f3d0;
-}
-
-/* Простая анимация для бейджа in-progress */
-.status-badge.in-progress {
-    animation: pulse 2s infinite;
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
 }
 
 @keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.8;
-    }
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
 }
 
-/* Подсказка в бейдже статуса */
 .click-hint {
-    font-size: 10px;
-    opacity: 0.7;
-    margin-left: 4px;
-    font-weight: normal;
+  font-size: 10px;
+  opacity: 0.7;
+  margin-left: 4px;
+  font-weight: normal;
 }
 
-/* Индикатор следующего статуса */
 .next-status-hint {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid #eee;
-    font-size: 12px;
-    color: #666;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
 }
 
 .technology-card:hover .next-status-hint {
-    opacity: 1;
+  opacity: 1;
 }
 
-/* Плавное появление карточек */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .technology-card {
-    animation: fadeIn 0.5s ease;
+  animation: fadeIn 0.5s ease;
 }
 
-/* Адаптивность */
+@keyframes highlight {
+  0% { background-color: transparent; }
+  50% { background-color: rgba(25, 118, 210, 0.05); }
+  100% { background-color: transparent; }
+}
+
+.technology-card.selected {
+  animation: highlight 0.5s ease;
+}
+
 @media (max-width: 768px) {
-    .card-section {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .status-info {
-        margin-left: 0;
-        align-self: flex-start;
-    }
-    
-    .technology-card {
-        padding: 14px;
-    }
-    
-    .card-content h3 {
-        font-size: 16px;
-    }
+  .card-section {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .status-info {
+    margin-left: 0;
+    align-self: flex-start;
+  }
+  
+  .technology-card {
+    padding: 14px;
+  }
+  
+  .card-content h3 {
+    font-size: 16px;
+  }
 }
