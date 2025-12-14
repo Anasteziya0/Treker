@@ -1,15 +1,15 @@
+// components/TechnologyCard.jsx
 import React, { useState } from 'react';
 import './TechnologyCard.css';
 
 function TechnologyCard({ 
-  id, 
-  title, 
-  description, 
-  status, 
+  technology,
   isSelected, 
   onStatusChange, 
   onSelect 
 }) {
+  // Деструктуризация без id, так как он не используется
+  const { title, description, status } = technology;
   const [isChanging, setIsChanging] = useState(false);
   
   const getStatusText = () => {
@@ -18,18 +18,17 @@ function TechnologyCard({
         return 'Изучено';
       case 'in-progress':
         return 'В процессе';
-      case 'planned':
-        return 'Запланировано';
+      case 'not-started':
       default:
-        return 'Запланировано';
+        return 'Не начато';
     }
   };
   
   const getNextStatusText = () => {
     const statusFlow = {
-      'planned': 'in-progress',
+      'not-started': 'in-progress',
       'in-progress': 'completed',
-      'completed': 'planned'
+      'completed': 'not-started'
     };
     
     const nextStatus = statusFlow[status];
@@ -38,16 +37,16 @@ function TechnologyCard({
         return 'Изучено';
       case 'in-progress':
         return 'В процессе';
-      case 'planned':
-        return 'Запланировано';
+      case 'not-started':
+        return 'Не начато';
       default:
-        return 'Запланировано';
+        return 'Не начато';
     }
   };
 
   const handleCardClick = () => {
     if (onSelect) {
-      onSelect(id);
+      onSelect();
     }
   };
 
@@ -58,7 +57,7 @@ function TechnologyCard({
     setIsChanging(true);
     
     if (onStatusChange) {
-      onStatusChange(id, status);
+      onStatusChange();
     }
     
     setTimeout(() => setIsChanging(false), 300);
@@ -84,6 +83,9 @@ function TechnologyCard({
         <div className="card-content">
           <h3>{title} {isSelected && '📝'}</h3>
           <p className="description">{description}</p>
+          <div className="tech-category">
+            {technology.category}
+          </div>
         </div>
         <div className="status-info">
           <button

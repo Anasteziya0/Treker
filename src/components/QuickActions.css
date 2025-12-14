@@ -1,0 +1,165 @@
+/* components/QuickActions.css */
+.quick-actions {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  margin: 25px 0;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.actions-title {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  color: #333;
+  font-weight: 600;
+}
+
+.actions-subtitle {
+  margin: 0 0 20px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-align: left;
+  background: #f8f9fa;
+  border: 2px solid transparent;
+}
+
+.action-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:active:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.action-icon {
+  font-size: 20px;
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+}
+
+.action-text {
+  flex: 1;
+}
+
+/* Стили для конкретных кнопок */
+.action-complete {
+  background-color: #f0fdf4;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.action-complete:hover:not(:disabled) {
+  background-color: #d1fae5;
+}
+
+.action-reset {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.action-reset:hover:not(:disabled) {
+  background-color: #fde68a;
+}
+
+.action-export {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+.action-export:hover:not(:disabled) {
+  background-color: #93c5fd;
+}
+
+.actions-info {
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+}
+
+.actions-info p {
+  margin: 0;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quick-actions {
+  animation: fadeIn 0.5s ease;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .actions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .quick-actions {
+    padding: 20px;
+  }
+  
+  .action-btn {
+    padding: 14px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quick-actions {
+    padding: 15px;
+  }
+  
+  .actions-title {
+    font-size: 18px;
+  }
+  
+  .action-btn {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+  
+  .action-icon {
+    font-size: 24px;
+    width: auto;
+  }
+}
