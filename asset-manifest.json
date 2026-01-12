@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Treker/static/css/main.c1226b1a.css",
+    "main.js": "/Treker/static/js/main.c7d2971f.js",
+    "static/js/453.a5f86b14.chunk.js": "/Treker/static/js/453.a5f86b14.chunk.js",
+    "index.html": "/Treker/index.html",
+    "main.c1226b1a.css.map": "/Treker/static/css/main.c1226b1a.css.map",
+    "main.c7d2971f.js.map": "/Treker/static/js/main.c7d2971f.js.map",
+    "453.a5f86b14.chunk.js.map": "/Treker/static/js/453.a5f86b14.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c1226b1a.css",
+    "static/js/main.c7d2971f.js"
+  ]
+}
