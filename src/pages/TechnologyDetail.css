@@ -1,0 +1,270 @@
+.technology-detail-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.back-link {
+  padding: 10px 20px;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.back-link:hover {
+  background: #2980b9;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-danger {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-danger:hover {
+  background: #c0392b;
+}
+
+.detail-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}
+
+.detail-main {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.detail-title {
+  margin: 0 0 20px 0;
+  color: #2c3e50;
+  font-size: 2.2rem;
+}
+
+.detail-meta {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.category-badge,
+.difficulty-badge,
+.status-badge {
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}
+
+.category-badge {
+  background: #3498db;
+}
+
+.difficulty-badge {
+  background: #9b59b6;
+}
+
+.detail-section {
+  margin-bottom: 30px;
+}
+
+.detail-section h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.description {
+  color: #555;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.notes-box {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.resources-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resource-link {
+  padding: 12px 20px;
+  background: white;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  color: #3498db;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.resource-link:hover {
+  background: #3498db;
+  color: white;
+  transform: translateX(5px);
+}
+
+.no-resources {
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+.detail-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.status-controls,
+.progress-section,
+.dates-info {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.status-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.status-btn {
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.status-btn:hover {
+  opacity: 0.9;
+}
+
+.status-btn.active {
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+  transform: scale(1.02);
+}
+
+.progress-display {
+  text-align: center;
+}
+
+.progress-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+
+.dates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.date-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.date-label {
+  color: #666;
+  font-weight: 500;
+}
+
+.date-value {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.not-found {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+.not-found h1 {
+  color: #e74c3c;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 992px) {
+  .detail-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .detail-title {
+    font-size: 1.8rem;
+  }
+  
+  .detail-main,
+  .status-controls,
+  .progress-section,
+  .dates-info {
+    padding: 20px;
+  }
+}

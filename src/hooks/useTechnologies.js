@@ -1,225 +1,334 @@
-// hooks/useTechnologies.js
-import useLocalStorage from './useLocalStorage';
+import { useState, useEffect } from 'react';
 
-// Начальные данные для технологий
 const initialTechnologies = [
   { 
     id: 1, 
-    title: 'React Components', 
-    description: 'Изучение базовых компонентов', 
-    status: 'not-started',
-    notes: '',
-    category: 'frontend'
+    title: 'React', 
+    description: 'Библиотека для создания пользовательских интерфейсов', 
+    status: 'completed',
+    notes: 'Изучил основные хуки и компоненты',
+    category: 'frontend',
+    difficulty: 'beginner',
+    resources: ['https://react.dev', 'https://ru.reactjs.org'],
+    progress: 100,
+    startedAt: '2024-01-15',
+    completedAt: '2024-02-20',
+    createdAt: '2024-01-10'
   },
   { 
     id: 2, 
-    title: 'Node.js Basics', 
-    description: 'Основы серверного JavaScript', 
-    status: 'not-started',
-    notes: '',
-    category: 'backend'
+    title: 'Node.js', 
+    description: 'Среда выполнения JavaScript на стороне сервера', 
+    status: 'in-progress',
+    notes: 'Осваиваю Express.js и MongoDB',
+    category: 'backend',
+    difficulty: 'intermediate',
+    resources: ['https://nodejs.org', 'https://expressjs.com'],
+    progress: 70,
+    startedAt: '2024-02-01',
+    completedAt: '',
+    createdAt: '2024-01-20'
   },
   { 
     id: 3, 
-    title: 'React Hooks', 
-    description: 'Изучение всех основных хуков', 
-    status: 'not-started',
-    notes: '',
-    category: 'frontend'
+    title: 'TypeScript', 
+    description: 'Типизированное надмножество JavaScript', 
+    status: 'in-progress',
+    notes: 'Изучаю generics и utility types',
+    category: 'language',
+    difficulty: 'intermediate',
+    resources: ['https://www.typescriptlang.org'],
+    progress: 60,
+    startedAt: '2024-02-10',
+    completedAt: '',
+    createdAt: '2024-01-25'
   },
   { 
     id: 4, 
-    title: 'Express.js', 
-    description: 'Создание REST API', 
-    status: 'not-started',
-    notes: '',
-    category: 'backend'
+    title: 'MongoDB', 
+    description: 'Документоориентированная NoSQL база данных', 
+    status: 'planned',
+    notes: 'Планирую изучить агрегации',
+    category: 'database',
+    difficulty: 'intermediate',
+    resources: ['https://www.mongodb.com'],
+    progress: 0,
+    startedAt: '',
+    completedAt: '',
+    createdAt: '2024-02-01'
   },
   { 
     id: 5, 
-    title: 'React Router', 
-    description: 'Навигация в React приложениях', 
-    status: 'not-started',
-    notes: '',
-    category: 'frontend'
-  },
-  { 
-    id: 6, 
-    title: 'MongoDB', 
-    description: 'Работа с NoSQL базой данных', 
-    status: 'not-started',
-    notes: '',
-    category: 'database'
-  },
-  { 
-    id: 7, 
-    title: 'Redux Toolkit', 
-    description: 'Управление состоянием приложения', 
-    status: 'not-started',
-    notes: '',
-    category: 'frontend'
-  },
-  { 
-    id: 8, 
     title: 'Docker', 
-    description: 'Контейнеризация приложений', 
-    status: 'not-started',
-    notes: '',
-    category: 'devops'
+    description: 'Платформа для контейнеризации приложений', 
+    status: 'paused',
+    notes: 'Временно приостановил изучение',
+    category: 'devops',
+    difficulty: 'advanced',
+    resources: ['https://www.docker.com'],
+    progress: 30,
+    startedAt: '2024-01-05',
+    completedAt: '',
+    createdAt: '2023-12-15'
   }
 ];
 
 function useTechnologies() {
-  const [technologies, setTechnologies] = useLocalStorage('technologies', initialTechnologies);
+  const [technologies, setTechnologies] = useState(() => {
+    try {
+      const saved = localStorage.getItem('technologies');
+      return saved ? JSON.parse(saved) : initialTechnologies;
+    } catch (error) {
+      console.error('Error loading technologies from localStorage:', error);
+      return initialTechnologies;
+    }
+  });
 
-  // Функция для обновления статуса технологии
-  const updateStatus = (techId, newStatus) => {
-    setTechnologies(prev => 
-      prev.map(tech => 
-        tech.id === techId ? { ...tech, status: newStatus } : tech
-      )
-    );
+  // Сохранение в localStorage при изменении
+  useEffect(() => {
+    try {
+      localStorage.setItem('technologies', JSON.stringify(technologies));
+    } catch (error) {
+      console.error('Error saving technologies to localStorage:', error);
+    }
+  }, [technologies]);
+
+  const updateStatus = (id, status) => {
+    setTechnologies(prev => prev.map(tech => {
+      if (tech.id === id) {
+        let updatedTech = { ...tech, status };
+        
+        // Если статус меняется на "completed", устанавливаем прогресс 100%
+        if (status === 'completed') {
+          updatedTech = { 
+            ...updatedTech, 
+            progress: 100, 
+            completedAt: new Date().toISOString().split('T')[0] 
+          };
+        }
+        
+        // Если статус меняется с "completed" на другой, сбрасываем completedAt
+        if (tech.status === 'completed' && status !== 'completed') {
+          updatedTech = { ...updatedTech, completedAt: '' };
+        }
+        
+        // Если статус меняется на "in-progress" и не было startedAt
+        if (status === 'in-progress' && !tech.startedAt) {
+          updatedTech = { ...updatedTech, startedAt: new Date().toISOString().split('T')[0] };
+        }
+        
+        return updatedTech;
+      }
+      return tech;
+    }));
   };
 
-  // Функция для обновления заметок
-  const updateNotes = (techId, newNotes) => {
-    setTechnologies(prev => 
-      prev.map(tech => 
-        tech.id === techId ? { ...tech, notes: newNotes } : tech
-      )
-    );
+  const updateNotes = (id, notes) => {
+    setTechnologies(prev => prev.map(tech => 
+      tech.id === id ? { ...tech, notes } : tech
+    ));
   };
 
-  // Функция для расчета общего прогресса
-  const calculateProgress = () => {
-    if (technologies.length === 0) return 0;
-    const completed = technologies.filter(tech => tech.status === 'completed').length;
-    return Math.round((completed / technologies.length) * 100);
+  const updateProgress = (id, progress) => {
+    setTechnologies(prev => prev.map(tech => {
+      if (tech.id === id) {
+        const updatedTech = { ...tech, progress };
+        
+        // Если прогресс достиг 100%, меняем статус на completed
+        if (progress === 100) {
+          updatedTech.status = 'completed';
+          updatedTech.completedAt = new Date().toISOString().split('T')[0];
+        }
+        // Если прогресс больше 0, но меньше 100, и статус planned - меняем на in-progress
+        else if (progress > 0 && progress < 100 && tech.status === 'planned') {
+          updatedTech.status = 'in-progress';
+          if (!tech.startedAt) {
+            updatedTech.startedAt = new Date().toISOString().split('T')[0];
+          }
+        }
+        
+        return updatedTech;
+      }
+      return tech;
+    }));
   };
 
-  // Функция для отметки всех как выполненных
   const markAllCompleted = () => {
-    setTechnologies(prev => 
-      prev.map(tech => ({ ...tech, status: 'completed' }))
-    );
+    setTechnologies(prev => prev.map(tech => ({
+      ...tech,
+      status: 'completed',
+      progress: 100,
+      completedAt: tech.completedAt || new Date().toISOString().split('T')[0]
+    })));
   };
 
-  // Функция для сброса всех статусов
   const resetAllStatuses = () => {
-    setTechnologies(prev => 
-      prev.map(tech => ({ ...tech, status: 'not-started' }))
-    );
+    setTechnologies(prev => prev.map(tech => ({
+      ...tech,
+      status: 'planned',
+      progress: 0,
+      startedAt: '',
+      completedAt: ''
+    })));
   };
 
-  // Функция для добавления новой технологии
-  const addTechnology = (title, description, category = 'other') => {
-    const newId = technologies.length > 0 ? Math.max(...technologies.map(t => t.id)) + 1 : 1;
-    const newTech = {
-      id: newId,
-      title,
-      description,
-      status: 'not-started',
-      notes: '',
-      category
+  const addTechnology = (technology) => {
+    const newTechnology = {
+      ...technology,
+      id: Date.now(),
+      status: 'planned',
+      progress: 0,
+      createdAt: new Date().toISOString().split('T')[0]
     };
-    setTechnologies(prev => [...prev, newTech]);
+    setTechnologies(prev => [...prev, newTechnology]);
   };
 
-  // Функция для удаления технологии
-  const removeTechnology = (techId) => {
-    setTechnologies(prev => prev.filter(tech => tech.id !== techId));
+  const removeTechnology = (id) => {
+    setTechnologies(prev => prev.filter(tech => tech.id !== id));
   };
 
-  // Функция для получения технологий по категории
   const getTechnologiesByCategory = (category) => {
     return technologies.filter(tech => tech.category === category);
   };
 
-  // Функция для получения статистики
+  const getTechnologiesByStatus = (status) => {
+    return technologies.filter(tech => tech.status === status);
+  };
+
   const getStats = () => {
+    const total = technologies.length;
+    const completed = technologies.filter(tech => tech.status === 'completed').length;
+    const inProgress = technologies.filter(tech => tech.status === 'in-progress').length;
+    const planned = technologies.filter(tech => tech.status === 'planned').length;
+    const paused = technologies.filter(tech => tech.status === 'paused').length;
+    
+    const totalProgress = technologies.reduce((sum, tech) => sum + tech.progress, 0) / total;
+    
     return {
-      total: technologies.length,
-      completed: technologies.filter(t => t.status === 'completed').length,
-      inProgress: technologies.filter(t => t.status === 'in-progress').length,
-      notStarted: technologies.filter(t => t.status === 'not-started').length
+      total,
+      completed,
+      inProgress,
+      planned,
+      paused,
+      totalProgress: Math.round(totalProgress) || 0
     };
   };
 
-  // Функция для экспорта данных
   const exportData = () => {
-    const data = {
-      technologies: technologies,
-      exportedAt: new Date().toISOString(),
-      total: technologies.length,
-      completed: technologies.filter(t => t.status === 'completed').length,
-      inProgress: technologies.filter(t => t.status === 'in-progress').length,
-      notStarted: technologies.filter(t => t.status === 'not-started').length,
-      progress: calculateProgress()
-    };
-    return JSON.stringify(data, null, 2);
+    return JSON.stringify(technologies, null, 2);
   };
 
-  // Функция для импорта данных
-  const importData = (importedData) => {
+  const importData = (data) => {
     try {
-      const parsedData = JSON.parse(importedData);
-      if (parsedData.technologies && Array.isArray(parsedData.technologies)) {
-        setTechnologies(parsedData.technologies);
+      const imported = JSON.parse(data);
+      if (Array.isArray(imported)) {
+        setTechnologies(imported);
         return true;
       }
+      return false;
     } catch (error) {
-      console.error('Ошибка при импорте данных:', error);
+      console.error('Error importing data:', error);
+      return false;
     }
-    return false;
   };
 
-  // Функция для поиска технологий
-  const searchTechnologies = (query) => {
+  const searchTechnologies = (searchTerm) => {
+    if (!searchTerm.trim()) return technologies;
+    
+    const term = searchTerm.toLowerCase();
     return technologies.filter(tech => 
-      tech.title.toLowerCase().includes(query.toLowerCase()) || 
-      tech.description.toLowerCase().includes(query.toLowerCase()) ||
-      tech.category.toLowerCase().includes(query.toLowerCase())
+      tech.title.toLowerCase().includes(term) ||
+      tech.description.toLowerCase().includes(term) ||
+      tech.category.toLowerCase().includes(term)
     );
   };
 
-  // Функция для получения следующего статуса
   const getNextStatus = (currentStatus) => {
     const statusFlow = {
-      'not-started': 'in-progress',
+      'planned': 'in-progress',
       'in-progress': 'completed',
-      'completed': 'not-started'
+      'completed': 'paused',
+      'paused': 'planned'
     };
-    return statusFlow[currentStatus] || 'not-started';
+    return statusFlow[currentStatus] || 'planned';
   };
 
-  // Функция для получения текста статуса
   const getStatusText = (status) => {
-    switch (status) {
-      case 'completed':
-        return 'Изучено';
-      case 'in-progress':
-        return 'В процессе';
-      case 'not-started':
-      default:
-        return 'Не начато';
-    }
+    const statusMap = {
+      'planned': 'Запланировано',
+      'in-progress': 'В процессе',
+      'completed': 'Завершено',
+      'paused': 'Приостановлено'
+    };
+    return statusMap[status] || status;
   };
 
-  // Функция для получения категорий
   const getCategories = () => {
-    const categories = new Set(technologies.map(tech => tech.category));
-    return Array.from(categories);
+    const categories = technologies.map(tech => tech.category);
+    return [...new Set(categories)];
+  };
+
+  const calculateProgress = () => {
+    if (technologies.length === 0) return 0;
+    const totalProgress = technologies.reduce((sum, tech) => sum + tech.progress, 0);
+    return Math.round(totalProgress / technologies.length);
+  };
+
+  // Новые методы для массового редактирования
+  const bulkUpdateStatus = (technologyIds, newStatus) => {
+    setTechnologies(prev => prev.map(tech => {
+      if (technologyIds.includes(tech.id)) {
+        let updatedTech = { ...tech, status: newStatus };
+        
+        // Если статус меняется на "completed", устанавливаем прогресс 100%
+        if (newStatus === 'completed') {
+          updatedTech = { ...updatedTech, progress: 100, completedAt: new Date().toISOString().split('T')[0] };
+        }
+        
+        // Если статус меняется с "completed" на другой, сбрасываем completedAt
+        if (tech.status === 'completed' && newStatus !== 'completed') {
+          updatedTech = { ...updatedTech, completedAt: '' };
+        }
+        
+        // Если статус меняется на "in-progress" и не было startedAt
+        if (newStatus === 'in-progress' && !tech.startedAt) {
+          updatedTech = { ...updatedTech, startedAt: new Date().toISOString().split('T')[0] };
+        }
+        
+        return updatedTech;
+      }
+      return tech;
+    }));
+  };
+
+  // Метод для импорта технологий
+  const importTechnologies = (importedTechnologies) => {
+    setTechnologies(prev => {
+      // Создаем новый массив, объединяя существующие и импортированные
+      const existingIds = new Set(prev.map(tech => tech.id));
+      const newTechnologies = importedTechnologies.map(tech => {
+        // Если у импортированной технологии уже есть ID, который существует, генерируем новый
+        if (existingIds.has(tech.id)) {
+          return { ...tech, id: Date.now() + Math.random() };
+        }
+        return tech;
+      });
+      
+      return [...prev, ...newTechnologies];
+    });
   };
 
   return {
     technologies,
     updateStatus,
     updateNotes,
+    updateProgress,
     markAllCompleted,
     resetAllStatuses,
     addTechnology,
     removeTechnology,
     getTechnologiesByCategory,
+    getTechnologiesByStatus,
     getStats,
     exportData,
     importData,
@@ -227,7 +336,10 @@ function useTechnologies() {
     getNextStatus,
     getStatusText,
     getCategories,
-    progress: calculateProgress()
+    progress: calculateProgress(),
+    // Новые методы:
+    bulkUpdateStatus,
+    importTechnologies
   };
 }
 

@@ -1,0 +1,121 @@
+/* Navigation.css */
+.main-navigation {
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  padding: 15px 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 3px solid #1a5276; /* Добавил границу для контраста */
+}
+
+.nav-brand {
+  display: inline-block;
+}
+
+.nav-brand a {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-brand h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Добавил тень для лучшей читаемости */
+}
+
+.nav-brand h2:hover {
+  opacity: 0.9;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 15px 0 0 0;
+  padding: 0;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.nav-menu li {
+  margin: 0;
+}
+
+.nav-menu a {
+  color: rgba(255, 255, 255, 0.95); /* Сделал ярче */
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: block;
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.1); /* Полупрозрачный фон */
+}
+
+.nav-menu a:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-menu a.active {
+  color: white;
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Адаптивность */
+@media (min-width: 768px) {
+  .main-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+  }
+  
+  .nav-menu {
+    margin-top: 0;
+    gap: 20px;
+  }
+  
+  .nav-brand h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-navigation {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .nav-menu {
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .nav-brand h2 {
+    justify-content: center;
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-menu {
+    gap: 10px;
+  }
+  
+  .nav-menu a {
+    padding: 6px 12px;
+    font-size: 1rem;
+  }
+}

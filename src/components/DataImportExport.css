@@ -1,0 +1,173 @@
+.data-import-export {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.data-import-export h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  font-size: 1.8rem;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.status-message {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: #e8f4fc;
+  border-left: 4px solid #3498db;
+  color: #2c3e50;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease;
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.btn-export, .btn-import {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-export {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+  color: white;
+}
+
+.btn-export:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+}
+
+.btn-export:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.file-input-label {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.file-input-label input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.btn-import {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-import:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.drop-zone {
+  border: 3px dashed #ddd;
+  border-radius: 12px;
+  padding: 60px 20px;
+  text-align: center;
+  margin-top: 30px;
+  background: #fafafa;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.drop-zone:hover {
+  border-color: #3498db;
+  background: #f0f8ff;
+}
+
+.drop-zone:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+.drop-zone.dragging {
+  border-color: #3498db;
+  background: #e8f4fc;
+  transform: scale(1.02);
+}
+
+.drop-zone p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.drop-zone .hint {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.info {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.info p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.info p strong {
+  color: #2c3e50;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .data-import-export {
+    padding: 20px;
+  }
+  
+  .controls {
+    flex-direction: column;
+  }
+  
+  .btn-export, .btn-import {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .drop-zone {
+    padding: 40px 15px;
+  }
+}
